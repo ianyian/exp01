@@ -41,6 +41,21 @@ function App() {
         minHeight: "100vh",
       }}
     >
+      <div
+        style={{
+          position: "absolute",
+          top: "20px",
+          right: "20px",
+          fontSize: "2em",
+          color: "#4CAF50",
+          backgroundColor: "rgba(255, 255, 255, 0.8)",
+          padding: "5px",
+          borderRadius: "5px",
+          zIndex: "1000",
+        }}
+      >
+        Jonathan
+      </div>
       <header
         style={{
           backgroundColor: "#4CAF50",
