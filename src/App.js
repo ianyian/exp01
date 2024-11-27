@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import TicTacToe from "./TicTacToe";
 import MemoryCardGame from "./MemoryCardGame";
@@ -6,6 +6,25 @@ import MemoryCardGame from "./MemoryCardGame";
 // Main App Component
 function App() {
   const [selectedGame, setSelectedGame] = useState("");
+  const [weather, setWeather] = useState(null);
+
+  useEffect(() => {
+    // Fetch weather data from OpenWeatherMap API
+    const fetchWeather = async () => {
+      try {
+        const response = await fetch(
+          `https://api.openweathermap.org/data/2.5/weather?q=London&units=metric&appid=fa222389dce050ef5cb1914223e2889b`
+        );
+        const data = await response.json();
+        if (data && data.main && data.weather) {
+          setWeather(data);
+        }
+      } catch (error) {
+        console.error("Error fetching weather data:", error);
+      }
+    };
+    fetchWeather();
+  }, []);
 
   const handleGameChange = (event) => {
     setSelectedGame(event.target.value);
@@ -33,6 +52,12 @@ function App() {
         <h1 style={{ fontSize: "2.5em", margin: 0 }}>
           Welcome to the Game Hub
         </h1>
+        {weather?.main && weather?.weather && (
+          <div style={{ marginTop: "10px", fontSize: "1.2em" }}>
+            Weather in {weather.name}: {weather.main.temp}°C,{" "}
+            {weather.weather[0].description}
+          </div>
+        )}
       </header>
       <div style={{ marginTop: "40px" }}>
         <label
